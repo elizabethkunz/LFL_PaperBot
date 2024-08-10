@@ -88,7 +88,8 @@ class Journalist:
     def _review_note(self,note,words):
         """checks the note for any keywords"""
         self.titles.append(note['title'])
-        match_list = [self._search_note(note['text'], word) for word in words]
+        text = note['title'] + ' ' + note['summary'] 
+        match_list = [self._search_note(text, word) for word in words]
         match_words = [x for x, y in zip(words, match_list) if y == 1]
         dictionary = {'quality':sum(match_list),'matching': match_words,
                       'entry': note}
@@ -173,4 +174,3 @@ class Editor:
                 }
         
     
-           
