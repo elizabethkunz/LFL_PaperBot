@@ -50,4 +50,11 @@ if __name__ == "__main__":
     editor = Editor(**kwargs)
     slack_token = os.environ['SLACK_TOKEN']
     client = slack.WebClient(token=slack_token,ssl=ssl_context)
-    results = [send_message(art) for art in editor.articles]
+    if editor.articles:
+        results = [send_message(art) for art in editor.articles]
+    else: 
+        no_matches_message = {
+            'channel': open(txtpath + files['channel']).read().strip(),
+            'text': "No papers matched the keyword search today."
+        }
+        send_message(no_matches_message)
